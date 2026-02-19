@@ -17,7 +17,6 @@ export default function Form() {
               type='tel'
               autoComplete='one-time-code'
               maxLength={6}
-              autoFocus
               onChange={(e) => {
                 const input = e.target;
                 input.value = e.target.value.replace(/\D/g, "");

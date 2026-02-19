@@ -16,7 +16,6 @@ export default function SignupForm() {
           <div className={styles["form-field"]}>
             <div className={styles["form-field__content"]}>
               <input
-                autoFocus
                 className={styles["form-field__control"]}
                 placeholder='Số điện thoại'
               />

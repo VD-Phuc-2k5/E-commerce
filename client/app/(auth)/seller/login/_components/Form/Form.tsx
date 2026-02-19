@@ -33,7 +33,7 @@ export default function Form() {
 
           {/* Forgot password link */}
           {/* TO DO: Add this link in the future */}
-          <div className={styles["form-field__forgotPW"]}>
+          <div className={styles["form__content__forgotPW"]}>
             <Link href='#'>Quên mật khẩu</Link>
           </div>
 

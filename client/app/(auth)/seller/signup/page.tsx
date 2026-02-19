@@ -2,8 +2,10 @@
 
 import { Fragment } from "react";
 import Hero from "@/signup/components/Hero/Hero";
-import SignupForm from "@/signup/components/Form/Form";
-import VerifyPhoneForm from "@/app/(auth)/seller/signup/_components/VerifyPhoneForm/Form";
+import SignupForm from "@/signup/components/SignupForm/Form";
+import VerifyPhoneForm from "@/signup/components/VerifyPhoneForm/Form";
+import CreatePwForm from "@/signup/components/CreatePwForm/Form";
+import SuccessCard from "@/signup/components/SuccessCard/SuccessCard";
 import FormLayout from "@/auth/components/FormLayout/FormLayout";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
 import styles from "@/app/(auth)/seller/main.module.scss";
@@ -24,7 +26,7 @@ export default function LoginPage() {
   if (step === 2) {
     return (
       <FormLayout title='Thiết Lập Mật Khẩu'>
-        <VerifyPhoneForm />
+        <CreatePwForm />
       </FormLayout>
     );
   }
@@ -33,7 +35,7 @@ export default function LoginPage() {
   if (step === 3) {
     return (
       <FormLayout title='Đăng ký thành công!'>
-        <VerifyPhoneForm />
+        <SuccessCard />
       </FormLayout>
     );
   }
