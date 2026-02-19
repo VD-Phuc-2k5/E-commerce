@@ -1,9 +1,12 @@
 import styles from "@/auth/components/SuccessIcon/SuccessIcon.module.scss";
 
-export default function SuccessIcon() {
+export default function SuccessIcon({ size = "1rem" }) {
   return (
     <div className={styles["icon-wrap"]}>
-      <svg fill='none' viewBox='0 0 16 16' className={styles["icon-wrap-item"]}>
+      <svg
+        fill='none'
+        viewBox='0 0 16 16'
+        style={{ height: size, width: size }}>
         <path
           fill='none'
           stroke='#6C0'

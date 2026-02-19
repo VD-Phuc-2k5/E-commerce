@@ -1,0 +1,42 @@
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import SuccessIcon from "@/auth/components/SuccessIcon/SuccessIcon";
+import styles from "@/signup/components/SuccessCard/SuccessCard.module.scss";
+
+const REDIRECT_SECONDS = 5;
+
+export default function SuccessCard() {
+  const router = useRouter();
+  const [countdown, setCountdown] = useState<number>(REDIRECT_SECONDS);
+
+  const navigateToShopee = useCallback(() => {
+    router.push("/");
+  }, [router]);
+
+  // Handle countdown decrement
+  useEffect(() => {
+    if (countdown <= 0) {
+      navigateToShopee();
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [countdown, navigateToShopee]);
+
+  return (
+    <div className={styles["success-card-body"]}>
+      <SuccessIcon size='3.5rem' />
+      <p>Bạn đã tạo thành công tài khoản Shopee</p>
+      <p>Bạn sẽ được chuyển hướng đến Shopee trong {countdown}s</p>
+      <div>
+        <button onClick={navigateToShopee}>Quay lại Shopee</button>
+      </div>
+    </div>
+  );
+}

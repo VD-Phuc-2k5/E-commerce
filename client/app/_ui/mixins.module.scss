@@ -59,6 +59,17 @@
       padding: 0.25rem 0 0;
     }
 
+    button {
+      @include flexBox(center);
+      padding: 0 0.9375rem 0 0.75rem;
+      background-color: transparent;
+
+      > svg {
+        height: 0.75rem;
+        width: 1.25rem;
+      }
+    }
+
     input {
       flex: 1;
       height: 16px;

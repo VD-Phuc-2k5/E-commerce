@@ -1,0 +1,20 @@
+@use "@/ui/mixins.module.scss" as mixins;
+
+.success-card-body {
+  @include mixins.flexBox(center);
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 5rem;
+
+  p {
+    text-align: center;
+  }
+
+  > div {
+    width: 100%;
+  }
+
+  button {
+    @include mixins.defaultButton;
+  }
+}
