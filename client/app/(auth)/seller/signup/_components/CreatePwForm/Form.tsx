@@ -1,21 +1,64 @@
 "use client";
 
-import { ChangeEvent, useState, useMemo } from "react";
+import * as yup from "yup";
+import { useState, useMemo } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import EyeIcon from "@/auth/components/EyeIcon/EyeIcon";
 import SubmitButton from "@/signup/components/SubmitButton/SubmitButton";
 import EyeSlashIcon from "@/auth/components/EyeIcon/EyeSlashIcon";
+import { useSellerContext } from "@/contexts/SellerSignupContext";
 import styles from "@/signup/components/CreatePwForm/Form.module.scss";
+
+const INVALID_PASSWORD_MESSAGES = {
+  required: "Mật khẩu không được để trống.",
+  invalidFormat: "Mật khẩu không hợp lệ."
+};
 
 const passwordRules = {
   hasLowercase: /[a-z]/,
   hasUppercase: /[A-Z]/,
-  hasLength: /^.{8,16}$/,
   allowedChars: /^[A-Za-z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/
 };
 
+const schema = yup.object({
+  password: yup
+    .string()
+    .required(INVALID_PASSWORD_MESSAGES.required)
+    .min(8, INVALID_PASSWORD_MESSAGES.invalidFormat)
+    .max(16, INVALID_PASSWORD_MESSAGES.invalidFormat)
+    .matches(
+      passwordRules.hasLowercase,
+      INVALID_PASSWORD_MESSAGES.invalidFormat
+    )
+    .matches(
+      passwordRules.hasUppercase,
+      INVALID_PASSWORD_MESSAGES.invalidFormat
+    )
+    .matches(
+      passwordRules.allowedChars,
+      INVALID_PASSWORD_MESSAGES.invalidFormat
+    )
+});
+
+type schemaType = yup.InferType<typeof schema>;
+
 export default function Form() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>("");
+  const { nextStep } = useSellerContext();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<schemaType>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      password: ""
+    }
+  });
+
+  const password = watch("password") ?? "";
 
   // Memoized object that tracks password validation status
   // Stores boolean results of testing password against each rule
@@ -24,19 +67,21 @@ export default function Form() {
     () => ({
       hasLowercase: passwordRules.hasLowercase.test(password),
       hasUppercase: passwordRules.hasUppercase.test(password),
-      hasLength: passwordRules.hasLength.test(password),
+      hasLength: 8 <= password.length && password.length <= 16,
       allowedChars: passwordRules.allowedChars.test(password)
     }),
     [password]
   );
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const password = e.target.value;
-    setPassword(password);
+  const onSubmit = (data: schemaType) => {
+    // TO DO: Call API to submit form data to server
+    nextStep();
   };
 
   return (
-    <form className={styles["new-password-form"]}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={styles["new-password-form"]}>
       <div className={styles["new-password-form-content"]}>
         <div className={styles["new-password-form-heading"]}>
           Bước cuối! Thiết lập mật khẩu để hoàn tất việc đăng ký.
@@ -45,7 +90,7 @@ export default function Form() {
         <div className={styles["form-field"]}>
           <div className={styles["form-field-content"]}>
             <input
-              onChange={onChange}
+              {...register("password")}
               type={showPassword ? "text" : "password"}
               className={styles["form-field-control"]}
               placeholder='Mật khẩu'
@@ -59,6 +104,10 @@ export default function Form() {
               {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
             </button>
           </div>
+
+          <p className={styles["form-field__error"]}>
+            {errors.password?.message}
+          </p>
 
           <ul className={styles["password-rules"]}>
             <li className={`${checks.hasLowercase ? styles.active : ""}`}>
@@ -75,7 +124,7 @@ export default function Form() {
             </li>
           </ul>
         </div>
-        <SubmitButton label='Đăng ký' />
+        <SubmitButton label='Đăng ký' type='submit' />
       </div>
     </form>
   );

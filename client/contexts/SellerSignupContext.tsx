@@ -8,14 +8,17 @@ interface Props {
 
 type SellerSignupValue = {
   step: number;
+  phone: string;
   nextStep: () => void;
   prevStep: () => void;
+  setPhone: (phone: string) => void;
 };
 
 const SellerSignupContext = createContext<SellerSignupValue | null>(null);
 
 const SellerSignupProvider = ({ children }: Props) => {
   const [step, setStep] = useState(0);
+  const [phone, setPhone] = useState("");
 
   const nextStep = () => {
     setStep((currStep) => Math.min(currStep + 1, 3));
@@ -26,7 +29,8 @@ const SellerSignupProvider = ({ children }: Props) => {
   };
 
   return (
-    <SellerSignupContext.Provider value={{ step, nextStep, prevStep }}>
+    <SellerSignupContext.Provider
+      value={{ step, phone, nextStep, prevStep, setPhone }}>
       {children}
     </SellerSignupContext.Provider>
   );
