@@ -84,6 +84,7 @@ export default function Form() {
               type='tel'
               autoComplete='one-time-code'
               maxLength={6}
+              data-testid='otp-textbox'
               {...register("otp")}
             />
             <div className={styles["verify-form-lines"]}>
@@ -107,7 +108,10 @@ export default function Form() {
         ) : (
           <div className={styles["verify-form-resend"]}>
             Mã OTP sẽ được gửi lại sau:
-            <button type='button' style={{ cursor: "auto" }}>
+            <button
+              type='button'
+              style={{ cursor: "auto" }}
+              data-testid='countdown'>
               {displayResendOtpTime(countdown)}
             </button>
           </div>

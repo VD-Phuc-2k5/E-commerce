@@ -1,12 +1,18 @@
+import { SVGProps } from "react";
 import styles from "./SuccessIcon.module.scss";
 
-export default function SuccessIcon({ size = "1rem" }) {
+type Props = SVGProps<SVGSVGElement> & {
+  size?: string;
+};
+
+export default function SuccessIcon({ size = "1rem", ...rest }: Props) {
   return (
     <div className={styles["icon-wrap"]}>
       <svg
         fill='none'
         viewBox='0 0 16 16'
-        style={{ height: size, width: size }}>
+        style={{ height: size, width: size }}
+        {...rest}>
         <path
           fill='none'
           stroke='#6C0'

@@ -46,4 +46,4 @@ const useSellerContext = () => {
   return context;
 };
 
-export { SellerSignupProvider, useSellerContext };
+export { SellerSignupProvider, SellerSignupContext, useSellerContext };

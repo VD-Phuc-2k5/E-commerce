@@ -10,7 +10,7 @@ import FormLayout from "@/app/(auth)/_components/FormLayout/FormLayout";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
 import styles from "@/app/(auth)/seller/main.module.scss";
 
-export default function LoginPage() {
+export default function SignupPage() {
   const { step } = useSellerContext();
 
   // Verify phone number

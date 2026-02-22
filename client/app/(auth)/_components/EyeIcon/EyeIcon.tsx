@@ -1,6 +1,6 @@
 export default function EyeIcon() {
   return (
-    <svg fill='none' viewBox='0 0 20 12'>
+    <svg fill='none' viewBox='0 0 20 12' data-testid='eye-icon'>
       <path
         stroke='none'
         fill='#000'

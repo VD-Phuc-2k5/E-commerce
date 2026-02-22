@@ -1,6 +1,5 @@
 "use client";
 
-import { useSellerContext } from "@/contexts/SellerSignupContext";
 import styles from ".//SubmitButton.module.scss";
 
 type Props = {
@@ -9,11 +8,8 @@ type Props = {
 };
 
 export default function SubmitButton({ label, type = "button" }: Props) {
-  const { step } = useSellerContext();
   return (
-    <button
-      type={type}
-      className={`${styles["submit-button"]} ${step === 3 && styles["not-allowed"]}`}>
+    <button type={type} className={`${styles["submit-button"]}`}>
       {label}
     </button>
   );

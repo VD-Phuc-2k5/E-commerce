@@ -65,7 +65,7 @@ export default function SignupForm() {
                 {...register("phone")}
                 maxLength={10}
               />
-              {isValid && <SuccessIcon />}
+              {isValid && <SuccessIcon data-testid='success-icon' />}
             </div>
             <p className={styles["form-field__error"]}>
               {errors.phone?.message}

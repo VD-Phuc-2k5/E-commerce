@@ -1,6 +1,6 @@
 export default function EyeSlashIcon() {
   return (
-    <svg fill='none' viewBox='0 0 20 10'>
+    <svg fill='none' viewBox='0 0 20 10' data-testid='eye-slash-icon'>
       <path
         stroke='none'
         fill='#000'
