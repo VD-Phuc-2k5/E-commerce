@@ -1,7 +1,7 @@
 "use client";
 
 import { useSellerContext } from "@/contexts/SellerSignupContext";
-import styles from "@/auth/components/StepIndicator/StepIndicator.module.scss";
+import styles from "./StepIndicator.module.scss";
 
 export default function StepIndicator() {
   const { step } = useSellerContext();

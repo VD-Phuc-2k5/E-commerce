@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "@/auth/components/NavLink/NavLink.module.scss";
+import styles from "./NavLink.module.scss";
 
 export default function NavLink() {
   // TO DO: Add this link in the future

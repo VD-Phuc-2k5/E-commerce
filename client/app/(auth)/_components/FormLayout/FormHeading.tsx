@@ -1,7 +1,7 @@
 "use client";
 
 import { useSellerContext } from "@/contexts/SellerSignupContext";
-import styles from "@/auth/components/FormLayout/FormLayout.module.scss";
+import styles from "./FormLayout.module.scss";
 
 type Props = {
   title: string;

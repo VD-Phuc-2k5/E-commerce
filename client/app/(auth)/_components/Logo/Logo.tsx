@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "@/auth/components/Logo/Logo.module.scss";
+import styles from "./Logo.module.scss";
 
 export default function Logo() {
   return (

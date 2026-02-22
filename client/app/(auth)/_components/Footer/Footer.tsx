@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import styles from "@/auth/components/Footer/Footer.module.scss";
+import styles from "./Footer.module.scss";
 
 const steps = [
   {

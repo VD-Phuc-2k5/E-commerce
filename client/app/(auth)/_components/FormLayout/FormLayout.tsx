@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
-import StepIndicator from "@/auth/components/StepIndicator/StepIndicator";
-import PrevButton from "@/auth/components/PrevButton/PrevButton";
-import FormHeading from "@/auth/components/FormLayout/FormHeading";
-import styles from "@/auth/components/FormLayout/FormLayout.module.scss";
+import StepIndicator from "@/app/(auth)/_components/StepIndicator/StepIndicator";
+import PrevButton from "@/app/(auth)/_components/PrevButton/PrevButton";
+import FormHeading from "@/app/(auth)/_components/FormLayout/FormHeading";
+import styles from "./FormLayout.module.scss";
 
 type Props = {
   children: ReactNode;

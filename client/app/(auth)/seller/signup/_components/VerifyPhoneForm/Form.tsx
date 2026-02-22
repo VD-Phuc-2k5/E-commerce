@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
-import SubmitButton from "@/signup/components/SubmitButton/SubmitButton";
-import styles from "@/signup/components/VerifyPhoneForm/Form.module.scss";
+import SubmitButton from "@/app/(auth)/seller/signup/_components/SubmitButton/SubmitButton";
+import styles from "./Form.module.scss";
 
 const RESEND_OTP_COUNTDOWN = 300; // 5 minutes
 

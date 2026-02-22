@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import SuccessIcon from "@/auth/components/SuccessIcon/SuccessIcon";
-import styles from "@/signup/components/SuccessCard/SuccessCard.module.scss";
+import SuccessIcon from "@/app/(auth)/_components/SuccessIcon/SuccessIcon";
+import styles from "./SuccessCard.module.scss";
 
 const REDIRECT_SECONDS = 5;
 

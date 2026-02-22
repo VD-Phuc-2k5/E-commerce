@@ -1,4 +1,4 @@
-import styles from "@/auth/components/SuccessIcon/SuccessIcon.module.scss";
+import styles from "./SuccessIcon.module.scss";
 
 export default function SuccessIcon({ size = "1rem" }) {
   return (

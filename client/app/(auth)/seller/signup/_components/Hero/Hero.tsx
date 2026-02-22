@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import styles from "@/signup/components/Hero/Hero.module.scss";
+import styles from "./Hero.module.scss";
 
 export default function SellerHero() {
   return (

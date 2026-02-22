@@ -4,11 +4,11 @@ import * as yup from "yup";
 import { useState, useMemo } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import EyeIcon from "@/auth/components/EyeIcon/EyeIcon";
-import SubmitButton from "@/signup/components/SubmitButton/SubmitButton";
-import EyeSlashIcon from "@/auth/components/EyeIcon/EyeSlashIcon";
+import EyeIcon from "@/app/(auth)/_components/EyeIcon/EyeIcon";
+import EyeSlashIcon from "@/app/(auth)/_components/EyeIcon/EyeSlashIcon";
+import SubmitButton from "@/app/(auth)/seller/signup/_components/SubmitButton/SubmitButton";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
-import styles from "@/signup/components/CreatePwForm/Form.module.scss";
+import styles from "./Form.module.scss";
 
 const INVALID_PASSWORD_MESSAGES = {
   required: "Mật khẩu không được để trống.",

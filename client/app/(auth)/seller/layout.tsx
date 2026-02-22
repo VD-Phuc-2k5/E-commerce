@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Navbar from "@/auth/components/Navbar/Navbar";
-import Footer from "@/auth/components/Footer/Footer";
+import Navbar from "@/app/(auth)/_components/Navbar/Navbar";
+import Footer from "@/app/(auth)/_components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Login to Your Account | EShoping Store",

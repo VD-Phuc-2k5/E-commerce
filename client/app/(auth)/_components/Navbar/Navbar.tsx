@@ -1,7 +1,7 @@
-import Logo from "@/auth/components/Logo/Logo";
-import NavbarLabel from "@/auth/components/NavbarLabel/NavbarLabel";
-import NavLink from "@/auth/components/NavLink/NavLink";
-import styles from "@/auth/components/Navbar/Navbar.module.scss";
+import Logo from "@/app/(auth)/_components/Logo/Logo";
+import NavbarLabel from "@/app/(auth)/_components/NavbarLabel/NavbarLabel";
+import NavLink from "@/app/(auth)/_components/NavLink/NavLink";
+import styles from "./Navbar.module.scss";
 
 export default function Navbar() {
   return (

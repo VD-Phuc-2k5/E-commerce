@@ -20,10 +20,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/ui/*": ["./app/_ui/*"],
-      "@/auth/components/*": ["./app/(auth)/_components/*"],
-      "@/signup/components/*": ["./app/(auth)/seller/signup/_components/*"],
-      "@/login/components/*": ["./app/(auth)/seller/login/_components/*"]
+      "@/ui/*": ["./app/_ui/*"]
     }
   },
   "include": [

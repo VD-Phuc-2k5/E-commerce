@@ -1,12 +1,12 @@
 "use client";
 
 import { Fragment } from "react";
-import Hero from "@/signup/components/Hero/Hero";
-import SignupForm from "@/signup/components/SignupForm/Form";
-import VerifyPhoneForm from "@/signup/components/VerifyPhoneForm/Form";
-import CreatePwForm from "@/signup/components/CreatePwForm/Form";
-import SuccessCard from "@/signup/components/SuccessCard/SuccessCard";
-import FormLayout from "@/auth/components/FormLayout/FormLayout";
+import Hero from "@/app/(auth)/seller/signup/_components/Hero/Hero";
+import SignupForm from "@/app/(auth)/seller/signup/_components/SignupForm/Form";
+import VerifyPhoneForm from "@/app/(auth)/seller/signup/_components/VerifyPhoneForm/Form";
+import CreatePwForm from "@/app/(auth)/seller/signup/_components/CreatePwForm/Form";
+import SuccessCard from "@/app/(auth)/seller/signup/_components/SuccessCard/SuccessCard";
+import FormLayout from "@/app/(auth)/_components/FormLayout/FormLayout";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
 import styles from "@/app/(auth)/seller/main.module.scss";
 

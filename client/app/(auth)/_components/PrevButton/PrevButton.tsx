@@ -1,7 +1,7 @@
 "use client";
 
 import { useSellerContext } from "@/contexts/SellerSignupContext";
-import styles from "@/auth/components/PrevButton/PrevButton.module.scss";
+import styles from "./PrevButton.module.scss";
 
 export default function PrevButton() {
   const { step, prevStep } = useSellerContext();

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
-import SuccessIcon from "@/auth/components/SuccessIcon/SuccessIcon";
-import SubmitButton from "@/signup/components/SubmitButton/SubmitButton";
+import SuccessIcon from "@/app/(auth)/_components/SuccessIcon/SuccessIcon";
+import SubmitButton from "@/app/(auth)/seller/signup/_components/SubmitButton/SubmitButton";
 import styles from "@/app/(auth)/seller/main.module.scss";
 
 const INVALID_PHONE_MESSAGES = {
