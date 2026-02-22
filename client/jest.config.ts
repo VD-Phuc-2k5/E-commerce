@@ -10,7 +10,8 @@ const config: Config = {
     "^.+\\.(css|sass|scss)$": "identity-obj-proxy",
     "^@/(.*)$": "<rootDir>/$1"
   },
-  coveragePathIgnorePatterns: ["/contexts/"]
+  coveragePathIgnorePatterns: ["/node_modules", "/.next/", "/contexts/"],
+  transformIgnorePatterns: ["/node_modules/", "/.next/"]
 };
 
 export default config;
