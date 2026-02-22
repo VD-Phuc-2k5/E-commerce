@@ -1,0 +1,178 @@
+1. Người dùng gửi API Đăng ký tài khoản người bán -> Cần nhập số điện thoại
+	POST /api/v1/auth/phone?type=seller
+	Request Body:
+	{
+	   "phone": "+84sdt",
+	   "countryCode": "+84",
+	   
+	}
+	
+	Response Success(200 OK):
+	{
+	  "code": 1000,
+	  "message": "success",
+	  "data": {
+	  	"otpSentAt": "",
+	  	"expiresIn": 300000, --5 phut,
+	  	"message": "Hello Im from Shopee, This is your OTP: ... Pls dont send to other"
+	  }
+	}
+	
+	Response Error(400 Bad Request) - Invalid Phone:
+	{
+	  "code": error-code,
+	  "message": "Số điện thoại không phợp lệ ",
+	  "data": null
+	}
+	
+	Response Error(429 Too many request) - Gửi nhiều lần quá:
+	{
+	  "code": error-code,
+	  "message": "Quá nhiều yêu cầu, thử lại sau 5 phút",
+	  "data": null
+	}
+2. Verify OTP 
+	POST /api/v1/auth/verify-otp
+	Request body: 
+	{
+	  "phone": "+84xxx",
+	  "otpCode": "123456"
+	}
+	
+	Response Case A: Tài khoản chưa tồn tại (Cần đăng ký)
+	{
+	  "code": 1000,
+	  "message": "OTP hợp lệ, vui lòng hoàn tất đăng ký",
+	  "data": {
+	    "isNewUser": true,
+	    "registerToken": "temporary_token_xyz" // Token này dùng cho Bước 3 - Tạo mật khẩu(tránh người dùng chạy thẳng vào bước 3 lun)
+	  }
+	}
+	Response Case B: Tài khoản đã tồn tại (Đăng nhập luôn)
+	{
+	  "code": 1000,
+	  "message": "Đăng nhập thành công",
+	  "data": {
+	    "isNewUser": false,
+	    "accessToken": "jwt_access_token_abc",
+	    "refreshToken": "jwt_refresh_token_def",
+	    "kycStatus": "VERIFIED" // Giúp App biết có cần bắt user e-KYC không - Xác thực CCCD
+	  }
+	}
+
+
+3.1 Tài khoản chưa tồn tại -> Tạo mới + thêm mật khẩu - Chỉ gọi API này nếu bước 2 nhận được isNewUser: true	
+	POST /api/v1/auth/register?type=seller
+	Request Body
+	{
+	  "phone": "+84xxx",
+	  "registerToken": "temporary_token_xyz",
+	  "password": "",
+	  "confirmPassword: ""
+	}
+	Response Success 201 Created{
+	  "code": 1000,
+	  "message" : "Đăng ký tài khoản thành công",
+	  "data": {
+	    "accessToken": "jwt_access_token_final",
+    	    "refreshToken": "jwt_refresh_token_final"
+	  }
+	}
+	
+3.2 Tài khoản đã tồn tại -> 
+	Gọi API GET /api/v1/auth/@me để lấy thông tin người dùng trước đó email, phone, username, địa chỉ, phone
+
+Cần cập nhật thông tin người bán -> 4
+
+4. Thiết lập thông tin Shop & Vận chuyển (Gộp: Thông tin shop, Vận chuyển, Loại hình KD)
+	Cần Header Authorization: Bearer <access_token> để xác định User.
+	
+	POST /api/v1/seller/onboarding/general
+	Request Body:
+	{
+	  "shopName": "Cửa Hàng Công Nghệ DontWait",
+	  "pickupAddress": "123 Đường ABC, Quận 1, TP.HCM",
+	  "contactEmail": "contact@dontwait.com",
+	  "phone": "+84xxxx" --sđt đã đăng ký trước đó
+	  "shippingProviders": ["GHN", "GHTK", "J&T"], -- Danh sách provider được chọn
+	  "businessType": "INDIVIDUAL", -- Enum: INDIVIDUAL, HOUSEHOLD, COMPANY
+	  "billingEmail": "invoice@dontwait.com",
+	}
+	
+	Response Success(200 OK):
+	{
+	  "code": 1000,
+	  "message": "Lưu thông tin thành công",
+	  "data": {
+	    "nextStep": "KYC_VERIFICATION", -- Client chuyển sang màn hình chụp ảnh
+	  }
+	}
+	
+	Response Error(400 Bad Request) - Tên Shop đã tồn tại:
+	{
+	  "code": 4009,
+	  "message": "Tên cửa hàng đã được sử dụng, vui lòng chọn tên khác",
+	  "data": null
+	}
+
+5. Xác thực e-KYC (AI MTCNN & FaceNet) //B Phúc thiết kế API này
+	Gửi URL ảnh giấy tờ và ảnh chân dung để AI xử lý so khớp.
+	
+	POST /api/v1/seller/onboarding/kyc
+	Request Body:
+	{
+	  "idCardNumber": "079012345678",
+	  "idCardFrontUrl": "https://s3.cloud/users/1/front.jpg",
+	  "idCardBackUrl": "https://s3.cloud/users/1/back.jpg",
+	  "selfieUrl": "https://s3.cloud/users/1/selfie.jpg"
+	}
+	
+	Response Success(200 OK) - AI Khớp dữ liệu:
+	{
+	  "code": 1000,
+	  "message": "Xác thực danh tính thành công",
+	  "data": {
+	    "matchScore": 0.98, -- Độ khớp khuôn mặt (0.0 - 1.0)
+	    "kycStatus": "VERIFIED",
+	    "nextStep": "CONTRACT_SIGNING"
+	  }
+	}
+	
+	Response Error(400 Bad Request) - AI Không khớp hoặc ảnh lỗi:
+	{
+	  "code": 4001,
+	  "message": "Khuôn mặt không khớp với giấy tờ, vui lòng thử lại",
+	  "data": {
+	     "suggestion": "Đảm bảo môi trường đủ sáng và không đeo kính râm"
+	  }
+	}
+	
+	Response Error(409 Conflict) - Số CCCD đã đăng ký shop khác:
+	{
+	  "code": 4003,
+	  "message": "Số CCCD này đã được sử dụng cho tài khoản khác",
+	  "data": null
+	}
+
+6. Ký Hợp đồng điện tử & Hoàn tất  //Chưa coi qua
+	Xác nhận cam kết cuối cùng để kích hoạt trạng thái Người bán (Seller).
+	
+	POST /api/v1/seller/onboarding/finalize
+	Request Body:
+	{
+	  "confirmEContract": true,
+	  "timestamp": "2026-02-12T10:30:00Z"
+	}
+	
+	Response Success(200 OK):
+	{
+	  "code": 1000,
+	  "message": "Chúc mừng! Bạn đã trở thành người bán hàng",
+	  "data": {
+	    "sellerStatus": "ACTIVE",
+	    "role": "SELLER", -- Cập nhật quyền trong JWT lần tới
+	    "redirectUrl": "/seller/dashboard"
+	  }
+	}
+
+

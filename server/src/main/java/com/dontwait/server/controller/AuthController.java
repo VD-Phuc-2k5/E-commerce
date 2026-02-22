@@ -17,7 +17,6 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
