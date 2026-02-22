@@ -34,6 +34,7 @@
     "@types/react-dom": "19",
     "eslint": "9",
     "eslint-config-next": "16.1.6",
+    "identity-obj-proxy": "3.0.0",
     "sass-embedded": "1.97.3",
     "typescript": "5"
   }
