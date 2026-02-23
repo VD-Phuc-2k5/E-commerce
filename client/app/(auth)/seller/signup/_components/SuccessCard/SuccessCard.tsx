@@ -13,9 +13,7 @@ export default function SuccessCard() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const navigateToShopee = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    if (intervalRef.current) clearInterval(intervalRef.current);
     router.push("/");
   }, [router]);
 
@@ -32,9 +30,7 @@ export default function SuccessCard() {
     }, 1000);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [router]);
 

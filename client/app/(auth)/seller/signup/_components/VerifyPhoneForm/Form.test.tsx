@@ -89,7 +89,7 @@ describe("Countdown", () => {
     expect(screen.getByTestId("countdown")).toHaveTextContent("05 : 00");
   });
 
-  it("decreases correctly after 9 seconds", () => {
+  it("decreases correctly after 9 seconds.", () => {
     renderWithProvider(<VerifyPhoneForm />);
     act(() => {
       jest.advanceTimersByTime(9000);
@@ -97,7 +97,7 @@ describe("Countdown", () => {
     expect(screen.getByTestId("countdown")).toHaveTextContent("04 : 51");
   });
 
-  it("clears interval when reaching zero", () => {
+  it("clears interval when reaching zero.", () => {
     const clearSpy = jest.spyOn(globalThis, "clearInterval");
     renderWithProvider(<VerifyPhoneForm />);
 
@@ -106,6 +106,24 @@ describe("Countdown", () => {
     });
 
     expect(screen.queryByTestId("countdown")).not.toBeInTheDocument();
+    expect(clearSpy).toHaveBeenCalled();
+  });
+
+  it("clears interval when clicking submit button.", async () => {
+    const clearSpy = jest.spyOn(globalThis, "clearInterval");
+    renderWithProvider(<VerifyPhoneForm />);
+    const submitBtn = screen.getByRole("button", {
+      name: /kế tiếp/i
+    });
+    const otpTextbox = screen.getByTestId("otp-textbox");
+
+    expect(submitBtn).toBeInTheDocument();
+    expect(otpTextbox).toBeInTheDocument();
+
+    await user.type(otpTextbox, "123456");
+    await user.click(submitBtn);
+
+    expect(mockContext.nextStep).toHaveBeenCalledTimes(1);
     expect(clearSpy).toHaveBeenCalled();
   });
 });

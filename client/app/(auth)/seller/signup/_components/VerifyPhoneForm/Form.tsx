@@ -1,7 +1,7 @@
 "use client";
 
 import * as yup from "yup";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
@@ -40,6 +40,7 @@ const displayResendOtpTime = (countdown: number) => {
 export default function Form() {
   const [countdown, setCountdown] = useState(RESEND_OTP_COUNTDOWN);
   const { nextStep, phone } = useSellerContext();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const {
     register,
     handleSubmit,
@@ -49,22 +50,24 @@ export default function Form() {
   });
 
   useEffect(() => {
-    if (countdown <= 0) return;
-
-    const timer = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          clearInterval(timer);
+          clearInterval(intervalRef.current!);
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [countdown]);
 
   const onSubmit = (data: schemaType) => {
+    // Clear Interval
+    if (intervalRef.current) clearInterval(intervalRef.current);
     // TO DO: Call API to submit form data to server
     nextStep();
   };
