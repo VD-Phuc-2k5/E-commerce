@@ -18,7 +18,7 @@ const INVALID_PASSWORD_MESSAGES = {
 const passwordRules = {
   hasLowercase: /[a-z]/,
   hasUppercase: /[A-Z]/,
-  allowedChars: /^[A-Za-z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/
+  allowedChars: /^[A-Za-z0-9!@#$%^&*()_+\-=[\]{}|,.?]+$/
 };
 
 const schema = yup.object({

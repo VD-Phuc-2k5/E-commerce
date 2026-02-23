@@ -65,7 +65,9 @@ describe("Create Password Form", () => {
 
   it("toggles password visibility when clicking button", async () => {
     renderWithProvider(<CreatePwForm />);
-    const toggleBtn = screen.getByRole("button", { name: /toggle password/i });
+    const toggleBtn = screen.getByRole("button", {
+      name: /toggle password visibility/i
+    });
     const passwordTextbox = screen.getByPlaceholderText(/mật khẩu/i);
 
     expect(toggleBtn).toBeInTheDocument();

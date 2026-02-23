@@ -21,8 +21,7 @@ export default function SuccessCard() {
     intervalRef.current = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          clearInterval(intervalRef.current!);
-          router.push("/");
+          navigateToShopee();
           return 0;
         }
         return prev - 1;

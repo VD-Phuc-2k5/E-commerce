@@ -43,8 +43,7 @@ export default function SignupForm() {
 
   const onSubmit = (data: schemaType) => {
     // TO DO: Call API to submit form data to server
-    data.phone = formatPhoneVN(data.phone);
-    setPhone(data.phone);
+    setPhone(formatPhoneVN(data.phone));
     nextStep();
   };
 

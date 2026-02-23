@@ -51,18 +51,18 @@ export default function Form() {
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(intervalRef.current!);
-          return 0;
-        }
-        return prev - 1;
-      });
+      setCountdown((prev) => Math.max(0, prev - 1));
     }, 1000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
+  }, []);
+
+  useEffect(() => {
+    if (countdown === 0 && intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
   }, [countdown]);
 
   const onSubmit = (data: schemaType) => {

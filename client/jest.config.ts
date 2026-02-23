@@ -8,6 +8,7 @@ const config: Config = {
   moduleNameMapper: {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     "^.+\\.(css|sass|scss)$": "identity-obj-proxy",
+    "^@/ui/(.*)$": "<rootDir>/app/_ui/$1",
     "^@/(.*)$": "<rootDir>/$1"
   },
   coveragePathIgnorePatterns: ["/node_modules", "/.next/", "/contexts/"],
