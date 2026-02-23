@@ -1,4 +1,8 @@
 databaseChangeLog:
   - include:
       file: changes/001-init-schema-user.sql
+  - include:
+      file: changes/002-alter-users-nullable-fields.sql
+  - include:
+      file: changes/003-fix-gender-and-seed-roles.sql
   
