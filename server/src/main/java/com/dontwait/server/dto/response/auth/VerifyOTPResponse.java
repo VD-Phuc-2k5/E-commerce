@@ -24,5 +24,6 @@ public class VerifyOTPResponse {
     // Case B: existing user → đăng nhập luôn
     String accessToken;
     String refreshToken;
+    String type; // SELLER, BUYER, ADMIN, GUEST 
     String kycStatus;
 }
