@@ -22,22 +22,27 @@ public class OTPServiceImpl implements OTPService {
     StringRedisTemplate redisTemplate;
 
     static final String OTP_PREFIX = "OTP:";
-    static final String SEND_RATE_PREFIX = "OTP_SEND_RATE:";   // Giới hạn số lần GỬI
+    static final String SEND_RATE_PREFIX = "OTP_SEND_RATE:"; // Giới hạn số lần GỬI
     static final String VERIFY_RATE_PREFIX = "OTP_VERIFY_RATE:"; // Giới hạn số lần XÁC THỰC
     public static final long OTP_TTL_MINUTES = 5;
-    static final int MAX_SEND_REQUESTS = 3;    // Tối đa 3 lần gửi / 5 phút
-    static final int MAX_VERIFY_ATTEMPTS = 5;  // Tối đa 5 lần nhập sai / 5 phút
+    static final int MAX_SEND_REQUESTS = 3; // Tối đa 3 lần gửi / 5 phút
+    static final int MAX_VERIFY_ATTEMPTS = 5; // Tối đa 5 lần nhập sai / 5 phút
 
     @Override
     public String generateAndSaveOtp(String phoneNumber) {
         // Rate limit: giới hạn số lần GỬI OTP
-        checkRateLimit(SEND_RATE_PREFIX + phoneNumber, MAX_SEND_REQUESTS, ErrorCode.OTP_RATE_LIMIT_EXCEEDED);
+        checkRateLimit(SEND_RATE_PREFIX + phoneNumber,
+                MAX_SEND_REQUESTS,
+                ErrorCode.OTP_RATE_LIMIT_EXCEEDED);
 
         // Tạo OTP 6 số
         String otp = GenerateOTP.generateOTP(6);
 
         // Lưu OTP vào Redis, TTL 5 phút
-        redisTemplate.opsForValue().set(OTP_PREFIX + phoneNumber, otp, OTP_TTL_MINUTES, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(OTP_PREFIX + phoneNumber,
+                otp,
+                OTP_TTL_MINUTES,
+                TimeUnit.MINUTES);
 
         // Tăng counter gửi
         incrementRateLimit(SEND_RATE_PREFIX + phoneNumber);
@@ -48,7 +53,9 @@ public class OTPServiceImpl implements OTPService {
     @Override
     public boolean validateOtp(String phoneNumber, String otp) {
         // Rate limit: giới hạn số lần NHẬP SAI
-        checkRateLimit(VERIFY_RATE_PREFIX + phoneNumber, MAX_VERIFY_ATTEMPTS, ErrorCode.OTP_VERIFY_LIMIT_EXCEEDED);
+        checkRateLimit(VERIFY_RATE_PREFIX + phoneNumber, 
+                MAX_VERIFY_ATTEMPTS, 
+                ErrorCode.OTP_VERIFY_LIMIT_EXCEEDED);
 
         String savedOtp = redisTemplate.opsForValue().get(OTP_PREFIX + phoneNumber);
 

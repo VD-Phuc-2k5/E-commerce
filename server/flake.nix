@@ -36,7 +36,7 @@
             ncurses
             patchelf
             zlib
-
+            tree
             jdk25
             maven
             liquibase
