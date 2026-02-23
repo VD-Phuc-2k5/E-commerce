@@ -1,6 +1,6 @@
 "use client";
 
-import styles from ".//SubmitButton.module.scss";
+import styles from "./SubmitButton.module.scss";
 
 type Props = {
   label: string;
