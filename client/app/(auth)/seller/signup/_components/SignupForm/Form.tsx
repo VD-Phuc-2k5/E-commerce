@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
 import SuccessIcon from "@/app/(auth)/_components/SuccessIcon/SuccessIcon";
 import SubmitButton from "@/app/(auth)/seller/signup/_components/SubmitButton/SubmitButton";
+import { PHONE_REGEX } from "@/utils/constants";
 import styles from "@/app/(auth)/seller/main.module.scss";
 
 const INVALID_PHONE_MESSAGES = {
@@ -14,14 +15,11 @@ const INVALID_PHONE_MESSAGES = {
   invalidFormat: "Số điện thoại không hợp lệ."
 };
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
 const schema = yup.object({
   phone: yup
     .string()
     .required(INVALID_PHONE_MESSAGES.required)
-    .matches(phoneRegExp, INVALID_PHONE_MESSAGES.invalidFormat)
+    .matches(PHONE_REGEX, INVALID_PHONE_MESSAGES.invalidFormat)
     .min(10, INVALID_PHONE_MESSAGES.invalidFormat)
 });
 

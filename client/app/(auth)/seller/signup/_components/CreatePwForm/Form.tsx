@@ -8,18 +8,8 @@ import EyeIcon from "@/app/(auth)/_components/EyeIcon/EyeIcon";
 import EyeSlashIcon from "@/app/(auth)/_components/EyeIcon/EyeSlashIcon";
 import SubmitButton from "@/app/(auth)/seller/signup/_components/SubmitButton/SubmitButton";
 import { useSellerContext } from "@/contexts/SellerSignupContext";
+import { PASSWORD_RULES, INVALID_PASSWORD_MESSAGES } from "@/utils/constants";
 import styles from "./Form.module.scss";
-
-const INVALID_PASSWORD_MESSAGES = {
-  required: "Mật khẩu không được để trống.",
-  invalidFormat: "Mật khẩu không hợp lệ."
-};
-
-const passwordRules = {
-  hasLowercase: /[a-z]/,
-  hasUppercase: /[A-Z]/,
-  allowedChars: /^[A-Za-z0-9!@#$%^&*()_+\-=[\]{}|,.?]+$/
-};
 
 const schema = yup.object({
   password: yup
@@ -28,15 +18,15 @@ const schema = yup.object({
     .min(8, INVALID_PASSWORD_MESSAGES.invalidFormat)
     .max(16, INVALID_PASSWORD_MESSAGES.invalidFormat)
     .matches(
-      passwordRules.hasLowercase,
+      PASSWORD_RULES.hasLowercase,
       INVALID_PASSWORD_MESSAGES.invalidFormat
     )
     .matches(
-      passwordRules.hasUppercase,
+      PASSWORD_RULES.hasUppercase,
       INVALID_PASSWORD_MESSAGES.invalidFormat
     )
     .matches(
-      passwordRules.allowedChars,
+      PASSWORD_RULES.allowedChars,
       INVALID_PASSWORD_MESSAGES.invalidFormat
     )
 });
@@ -65,10 +55,10 @@ export default function Form() {
   // Used to dynamically highlight/activate password requirement items in UI
   const checks = useMemo(
     () => ({
-      hasLowercase: passwordRules.hasLowercase.test(password),
-      hasUppercase: passwordRules.hasUppercase.test(password),
+      hasLowercase: PASSWORD_RULES.hasLowercase.test(password),
+      hasUppercase: PASSWORD_RULES.hasUppercase.test(password),
       hasLength: 8 <= password.length && password.length <= 16,
-      allowedChars: passwordRules.allowedChars.test(password)
+      allowedChars: PASSWORD_RULES.allowedChars.test(password)
     }),
     [password]
   );
