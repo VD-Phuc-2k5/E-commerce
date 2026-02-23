@@ -21,6 +21,6 @@ public class LoginResponse {
     String refreshToken; 
     String userId; 
     String name;
-    String type;
+    String role; // SELLER, BUYER, ADMIN, GUEST
     String avatar;
 }

@@ -1,6 +1,7 @@
 package com.dontwait.server.dto.response.auth;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VerifyOTPResponse {
+    @JsonProperty("isNewUser")
     boolean isNewUser;
 
     // Case A: new user → cần đăng ký
