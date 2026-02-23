@@ -20,7 +20,6 @@ import com.dontwait.server.mapper.UserMapper;
 import com.dontwait.server.service.AuthService;
 import com.dontwait.server.service.JwtService;
 import com.dontwait.server.service.OTPService;
-import com.dontwait.server.service.SmsSenderService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

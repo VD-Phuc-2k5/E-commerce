@@ -16,6 +16,10 @@ spring:
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD:redis123}
 
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
 server:
   port: ${SERVER_PORT:8080}
   servlet:
