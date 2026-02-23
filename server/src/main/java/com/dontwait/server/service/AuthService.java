@@ -12,6 +12,6 @@ import com.dontwait.server.dto.response.auth.VerifyOTPResponse;
 public interface AuthService {
     SendOTPResponse sendOtp(SendOTPRequest request);
     VerifyOTPResponse verifyOtp(VerifyOTPRequest request);
-    RegisterResponse register(RegisterRequest request);
+    RegisterResponse register(RegisterRequest request, String type);
     LoginResponse login(LoginRequest request);
 }
