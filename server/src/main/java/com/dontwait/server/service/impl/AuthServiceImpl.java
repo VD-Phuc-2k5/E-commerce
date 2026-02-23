@@ -13,7 +13,8 @@ import lombok.experimental.FieldDefaults;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService{@Override
+public class AuthServiceImpl implements AuthService{
+    @Override
     public VerifyOTPResponse verifyOtp(VerifyOTPRequest request) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'verifyOtp'");
