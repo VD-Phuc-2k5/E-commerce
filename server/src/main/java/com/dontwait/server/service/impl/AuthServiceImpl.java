@@ -1,6 +1,7 @@
 package com.dontwait.server.service.impl;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,8 @@ public class AuthServiceImpl implements AuthService {
         String otp = otpService.generateAndSaveOtp(phone);
 
         // TODO: Uncomment khi Twilio hoạt động
-        // smsSenderService.sendSms(phone, "Your OTP code is: " + otp + ". Valid for 5 minutes.");
+        // smsSenderService.sendSms(phone, "Your OTP code is: " + otp + ". Valid for 5
+        // minutes.");
 
         // Log OTP ra console cho development (XÓA KHI LÊN PRODUCTION)
         log.info("======== [DEV] OTP for {}: {} ========", phone, otp);
@@ -192,8 +194,11 @@ public class AuthServiceImpl implements AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getUserPassword())) {
             throw new AppException(ErrorCode.WRONG_PASSWORD);
         }
-
         String userId = user.getUserId().toString();
+        if (userId == null) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        }
+
         String phone = user.getUserPhone();
 
         // Generate tokens

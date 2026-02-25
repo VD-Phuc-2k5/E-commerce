@@ -19,6 +19,8 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+  type-handlers-package: com.dontwait.server.handler
+    
 
 server:
   port: ${SERVER_PORT:8080}
