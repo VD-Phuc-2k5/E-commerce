@@ -42,7 +42,7 @@ public class AuthController {
     @PostMapping("/verify-otp")
     public ApiResponse<VerifyOTPResponse> verifyOtp(@Valid @RequestBody VerifyOTPRequest request) {
         VerifyOTPResponse response = authService.verifyOtp(request);
-        String message = response.isNewUser()
+        String message = response.getIsNewUser()
                 ? "OTP verified. Please register to continue."
                 : "OTP verified. Login successful.";
         return ApiResponse.<VerifyOTPResponse>builder()

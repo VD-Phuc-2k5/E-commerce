@@ -1,7 +1,7 @@
 package com.dontwait.server.service.impl;
 
 import java.time.Instant;
-import java.util.UUID;
+import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -89,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
             String refreshToken = jwtService.generateRefreshToken(userId, phone);
 
             // Lấy role từ DB → trả FE dưới tên "type"
-            java.util.List<String> roles = userMapper.findRolesByUserId(existingUser.getUserId());
+            List<String> roles = userMapper.findRolesByUserId(existingUser.getUserId());
             String role = roles.isEmpty() ? "GUEST" : roles.get(0);
 
             return VerifyOTPResponse.builder()
