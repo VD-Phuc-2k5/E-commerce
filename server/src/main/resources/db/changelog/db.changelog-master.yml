@@ -5,4 +5,5 @@ databaseChangeLog:
       file: changes/002-alter-users-nullable-fields.sql
   - include:
       file: changes/003-fix-gender-and-seed-roles.sql
-  
+  - include:
+      file: changes/004-insert-seed-data-roles.sql

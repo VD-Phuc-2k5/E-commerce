@@ -1,6 +1,7 @@
 package com.dontwait.server.mapper;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.ibatis.annotations.Insert;
@@ -37,7 +38,7 @@ public interface UserMapper {
     @Select("SELECT r.role_name FROM user_roles ur " +
             "JOIN roles r ON ur.role_name = r.role_name " +
             "WHERE ur.user_id = #{userId}")
-    List<String> findRolesByUserId(@Param("userId") UUID userId);
+    Set<String> findRolesByUserId(@Param("userId") UUID userId);
 
     @Insert("INSERT INTO user_roles (user_id, role_name) VALUES (#{userId}, #{roleName})")
     int insertUserRole(@Param("userId") UUID userId, @Param("roleName") String roleName);

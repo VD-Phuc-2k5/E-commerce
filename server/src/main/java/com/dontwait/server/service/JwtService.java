@@ -2,6 +2,7 @@ package com.dontwait.server.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,9 @@ import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import com.dontwait.server.entity.User;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -49,15 +52,15 @@ public class JwtService {
     /**
      * Generate access token for authenticated user
      */
-    public String generateAccessToken(String userId, String phone) {
+    public String generateAccessToken(User user) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("dontwait-ecommerce")
-                .subject(userId)
+                .subject(user.getUserId().toString())
                 .issuedAt(now)
                 .expiresAt(now.plus(ACCESS_TOKEN_EXPIRY_HOURS, ChronoUnit.HOURS))
                 .id(UUID.randomUUID().toString())
-                .claim("phone", phone)
+                .claim("scope", buildScope(user))
                 .claim("type", "access")
                 .build();
 
@@ -65,18 +68,25 @@ public class JwtService {
         return jwtEncoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();
     }
 
+    private String buildScope(User user) {
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        if(!CollectionUtils.isEmpty(user.getRoles()))
+                user.getRoles().forEach(stringJoiner::add);
+        return stringJoiner.toString();
+    }
+
     /**
      * Generate refresh token for authenticated user
      */
-    public String generateRefreshToken(String userId, String phone) {
+    public String generateRefreshToken(User user) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("dontwait-ecommerce")
-                .subject(userId)
+                .subject(user.getUserId().toString())
                 .issuedAt(now)
                 .expiresAt(now.plus(REFRESH_TOKEN_EXPIRY_DAYS, ChronoUnit.DAYS))
                 .id(UUID.randomUUID().toString())
-                .claim("phone", phone)
+                .claim("scope", buildScope(user))
                 .claim("type", "refresh")
                 .build();
 

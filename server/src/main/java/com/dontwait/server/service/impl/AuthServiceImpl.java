@@ -1,7 +1,8 @@
 package com.dontwait.server.service.impl;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
 
     // ==================== VERIFY OTP ====================
     @Override
-    public VerifyOTPResponse verifyOtp(VerifyOTPRequest request) {
+    public VerifyOTPResponse verifyOtp(VerifyOTPRequest request, String type) {
         String phone = request.getPhone();
         String otpCode = request.getOtpCode();
 
@@ -84,19 +85,17 @@ public class AuthServiceImpl implements AuthService {
 
         if (existingUser != null && existingUser.isPhoneVerified()) {
             // Case B: User cũ → đăng nhập luôn
-            String userId = existingUser.getUserId().toString();
-            String accessToken = jwtService.generateAccessToken(userId, phone);
-            String refreshToken = jwtService.generateRefreshToken(userId, phone);
+            String accessToken = jwtService.generateAccessToken(existingUser);
+            String refreshToken = jwtService.generateRefreshToken(existingUser);
 
             // Lấy role từ DB → trả FE dưới tên "type"
-            List<String> roles = userMapper.findRolesByUserId(existingUser.getUserId());
-            String role = roles.isEmpty() ? "GUEST" : roles.get(0);
-
+            Set<String> roles = userMapper.findRolesByUserId(existingUser.getUserId());
+            existingUser.setRoles(roles);
             return VerifyOTPResponse.builder()
                     .isNewUser(false)
                     .accessToken(accessToken)
                     .refreshToken(refreshToken)
-                    .type(role)
+                    .type(type)
                     .kycStatus(existingUser.getKycStatus())
                     .build();
         } else {
@@ -162,9 +161,12 @@ public class AuthServiceImpl implements AuthService {
         };
         userMapper.insertUserRole(createdUser.getUserId(), role);
 
+        Set<String> roles = new HashSet<>();
+        roles.add(role);
+        createdUser.setRoles(roles);
         // 8. Generate tokens
-        String accessToken = jwtService.generateAccessToken(userId, phone);
-        String refreshToken = jwtService.generateRefreshToken(userId, phone);
+        String accessToken = jwtService.generateAccessToken(createdUser);
+        String refreshToken = jwtService.generateRefreshToken(createdUser);
 
         return RegisterResponse.builder()
                 .accessToken(accessToken)
@@ -174,7 +176,7 @@ public class AuthServiceImpl implements AuthService {
 
     // ==================== LOGIN (by password) ====================
     @Override
-    public LoginResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request, String type) {
         String identifier = request.getIdentifier();
 
         // Tìm user theo phone/email/username
@@ -199,22 +201,19 @@ public class AuthServiceImpl implements AuthService {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
 
-        String phone = user.getUserPhone();
-
-        // Generate tokens
-        String accessToken = jwtService.generateAccessToken(userId, phone);
-        String refreshToken = jwtService.generateRefreshToken(userId, phone);
-
         // Lấy role từ bảng user_roles → trả về FE dưới tên "type"
-        java.util.List<String> roles = userMapper.findRolesByUserId(user.getUserId());
-        String role = roles.isEmpty() ? "GUEST" : roles.get(0);
+        Set<String> roles = userMapper.findRolesByUserId(user.getUserId());
+        user.setRoles(roles);
+        // Generate tokens
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
 
         return LoginResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .userId(userId)
                 .name(user.getName())
-                .type(role)
+                .type(type)
                 .avatar(user.getUserAvatar())
                 .build();
     }

@@ -40,8 +40,10 @@ public class AuthController {
     }
 
     @PostMapping("/verify-otp")
-    public ApiResponse<VerifyOTPResponse> verifyOtp(@Valid @RequestBody VerifyOTPRequest request) {
-        VerifyOTPResponse response = authService.verifyOtp(request);
+    public ApiResponse<VerifyOTPResponse> verifyOtp(
+            @Valid @RequestBody VerifyOTPRequest request,
+            @RequestParam String type) {
+        VerifyOTPResponse response = authService.verifyOtp(request, type);
         String message = response.getIsNewUser()
                 ? "OTP verified. Please register to continue."
                 : "OTP verified. Login successful.";
@@ -63,8 +65,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
-        LoginResponse response = authService.login(request);
+    public ApiResponse<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request,
+            @RequestParam(defaultValue = "buyer") String type) {
+        LoginResponse response = authService.login(request, type);
         return ApiResponse.<LoginResponse>builder()
                 .message("Login successful")
                 .result(response)
