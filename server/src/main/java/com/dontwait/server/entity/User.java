@@ -2,6 +2,7 @@ package com.dontwait.server.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -36,4 +37,5 @@ public class User {
     String idCardNumber;
     String idCardFrontUrl;
     String idCardBackUrl;
+    List<Role> roles;
 }
