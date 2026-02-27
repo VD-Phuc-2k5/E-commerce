@@ -34,7 +34,8 @@ public enum ErrorCode {
     REGISTER_TOKEN_INVALID(1024, "Register token is invalid or expired", HttpStatus.BAD_REQUEST),
     PHONE_ALREADY_REGISTERED(1025, "Phone number is already registered", HttpStatus.CONFLICT),
     IDENTIFIER_REQUIRED(1026, "Identifier (phone/email/username) is required", HttpStatus.BAD_REQUEST),
-    USER_ALREADY_EXISTS(1027, "User already exists with verified phone", HttpStatus.CONFLICT);
+    USER_ALREADY_EXISTS(1027, "User already exists with verified phone", HttpStatus.CONFLICT),
+    TYPE_INVALID(1028, "Your type client send not matchs in server", HttpStatus.CONFLICT);
     int code;
     String message;
     HttpStatus httpStatus; 
