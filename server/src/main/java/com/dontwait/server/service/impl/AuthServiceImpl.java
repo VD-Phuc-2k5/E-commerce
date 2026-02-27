@@ -110,7 +110,7 @@ public class AuthServiceImpl implements AuthService {
                     .build();
         } else {
             // Case A: User mới → trả registerToken để đăng ký
-            String registerToken = jwtService.generateRegisterToken(phone);
+            String registerToken = jwtService.generateRegisterToken(phone, normalizedType);
 
             if (existingUser != null) {
                 userMapper.setPhoneVerified(phone);
@@ -145,6 +145,12 @@ public class AuthServiceImpl implements AuthService {
         User existingUser = userMapper.findByPhone(phone);
         if (existingUser != null && existingUser.isPhoneVerified() && existingUser.getUserPassword() != null) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
+        }
+
+        //Kiểm tra coi type đang đăng ký có giống với lúc verify hay không 
+        String tokenUserType = jwtService.extractUserTypeFromRegisterToken(request.getRegisterToken());
+        if (tokenUserType == null || !tokenUserType.equals(normalizedType)) {
+            throw new AppException(ErrorCode.TYPE_INVALID);
         }
 
         String hashedPassword = passwordEncoder.encode(request.getPassword());

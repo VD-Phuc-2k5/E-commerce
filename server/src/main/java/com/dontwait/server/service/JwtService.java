@@ -97,7 +97,7 @@ public class JwtService {
     /**
      * Generate short-lived register token after OTP verification (for new users)
      */
-    public String generateRegisterToken(String phone) {
+    public String generateRegisterToken(String phone, String userType) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("dontwait-ecommerce")
@@ -106,6 +106,7 @@ public class JwtService {
                 .expiresAt(now.plus(REGISTER_TOKEN_EXPIRY_MINUTES, ChronoUnit.MINUTES))
                 .id(UUID.randomUUID().toString())
                 .claim("type", "register")
+                .claim("userType", userType)
                 .build();
 
         JwsHeader header = JwsHeader.with(MacAlgorithm.HS512).build();
@@ -124,6 +125,13 @@ public class JwtService {
         }
     }
 
+    public String extractUserTypeFromRegisterToken(String registerToken) {
+    Jwt jwt = verifyToken(registerToken);
+    if (jwt == null) return null;
+    String type = jwt.getClaimAsString("type");
+    if (!"register".equals(type)) return null;
+    return jwt.getClaimAsString("userType");
+}
     /**
      * Extract phone from register token and validate it's a register-type token
      */
