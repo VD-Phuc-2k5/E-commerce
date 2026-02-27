@@ -11,12 +11,12 @@ import lombok.experimental.FieldDefaults;
 
 @Configuration
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
-public class TwilioInitiazer {
+public class TwilioInitializer {
     TwilioConfig twilioConfig;
-    static Logger LOGGER = LoggerFactory.getLogger(TwilioInitiazer.class);
+    static Logger LOGGER = LoggerFactory.getLogger(TwilioInitializer.class);
 
     @Autowired
-    public TwilioInitiazer(TwilioConfig twilioConfig) {
+    public TwilioInitializer(TwilioConfig twilioConfig) {
         this.twilioConfig = twilioConfig;
         if (twilioConfig.getAccountSid().isBlank() || twilioConfig.getAuthToken().isBlank()) {
             LOGGER.warn("Twilio credentials missing, SMS features disabled");
