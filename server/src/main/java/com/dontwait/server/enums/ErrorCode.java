@@ -13,7 +13,7 @@ public enum ErrorCode {
     INVALID_ID_KEY(1001, "Invalid Message key, you should check your key", HttpStatus.BAD_REQUEST),
     UNCATEGORIZED(6789, "Uncategorized Exception", HttpStatus.INTERNAL_SERVER_ERROR),
     UNAUTHENTICATED(1005, "Unauthenticated", HttpStatus.UNAUTHORIZED),
-    UNAUTHORIZEED(1006, "You do not have permission to access this resource", HttpStatus.FORBIDDEN),
+    UNAUTHORIZED(1006, "You do not have permission to access this resource", HttpStatus.FORBIDDEN),
     INVALID_PHONE_NUMBER(1007, "Invalid phone number format", HttpStatus.BAD_REQUEST),
     PHONE_NUMBER_REQUIRED(1008, "Phone number is required", HttpStatus.BAD_REQUEST),
     COUNTRY_CODE_REQUIRED(1009, "Country code is required", HttpStatus.BAD_REQUEST),

@@ -44,10 +44,10 @@ public class GlobalExceptionHandler {
     ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException e) {
         log.error("AccessDeniedException: ", e);
         return ResponseEntity
-                .status(ErrorCode.UNAUTHORIZEED.getHttpStatus())
+                .status(ErrorCode.UNAUTHORIZED.getHttpStatus())
                 .body(ApiResponse.builder()
-                    .code(ErrorCode.UNAUTHORIZEED.getCode())
-                    .message(ErrorCode.UNAUTHORIZEED.getMessage())
+                    .code(ErrorCode.UNAUTHORIZED.getCode())
+                    .message(ErrorCode.UNAUTHORIZED.getMessage())
                 .build());
     }
 
