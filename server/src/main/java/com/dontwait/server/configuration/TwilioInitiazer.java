@@ -18,7 +18,7 @@ public class TwilioInitiazer {
     @Autowired
     public TwilioInitiazer(TwilioConfig twilioConfig) {
         this.twilioConfig = twilioConfig;
-        if (twilioConfig.getAccountSid() == null || twilioConfig.getAuthToken() == null) {
+        if (twilioConfig.getAccountSid().isBlank() || twilioConfig.getAuthToken().isBlank()) {
             LOGGER.warn("Twilio credentials missing, SMS features disabled");
             return;
         }
