@@ -10,10 +10,26 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yml
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-handlers-package: com.dontwait.server.handler
+    
 
 server:
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT:8080}
   servlet:
     context-path: /api/v1
 jwt:
   signerKey: ${JWT_SECRET}
+
+twilio:
+  accountSid: ${TWILIO_ACCOUNT_SID}
+  authToken: ${TWILIO_AUTH_TOKEN}   
+  fromPhoneNumber: ${TWILIO_PHONE_NUMBER}

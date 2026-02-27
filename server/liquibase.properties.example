@@ -7,3 +7,4 @@ username=your_username
 password=your_password
 driver=org.postgresql.Driver
 classpath=target/classes:${HOME}/.m2/repository/org/postgresql/postgresql/42.7.7/postgresql-42.7.7.jar
+search-path=src/main/resources/db/changelog
