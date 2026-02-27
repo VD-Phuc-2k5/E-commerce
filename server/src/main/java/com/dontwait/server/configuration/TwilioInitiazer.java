@@ -13,13 +13,20 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class TwilioInitiazer {
     TwilioConfig twilioConfig;
-    static Logger LOGGER = LoggerFactory.getLogger(TwilioInitiazer.class); 
+    static Logger LOGGER = LoggerFactory.getLogger(TwilioInitiazer.class);
 
     @Autowired
     public TwilioInitiazer(TwilioConfig twilioConfig) {
         this.twilioConfig = twilioConfig;
-        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-        LOGGER.info("Twilio initialized with account SID: {}", twilioConfig.getAccountSid());
+        if (twilioConfig.getAccountSid() == null || twilioConfig.getAuthToken() == null) {
+            LOGGER.warn("Twilio credentials missing, SMS features disabled");
+            return;
+        }
+
+        Twilio.init(twilioConfig.getAccountSid(),
+                twilioConfig.getAuthToken());
+        LOGGER.info("Twilio initialized with account SID: {}",
+                twilioConfig.getAccountSid());
     }
 
 }
