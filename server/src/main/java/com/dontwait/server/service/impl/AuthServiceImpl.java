@@ -45,16 +45,16 @@ public class AuthServiceImpl implements AuthService {
     public SendOTPResponse sendOtp(SendOTPRequest request) {
         String phone = request.getPhone();
 
+        // TODO: Uncomment khi Twilio hoạt động
+
+        if (phone.startsWith("0")) {
+            phone = request.getCountryCode() + phone.substring(1);
+        }
         // Generate OTP và lưu vào Redis
         String otp = otpService.generateAndSaveOtp(phone);
 
-        // TODO: Uncomment khi Twilio hoạt động
-
-        if(phone.startsWith("0")) {
-            phone = request.getCountryCode() + phone.substring(1);
-        }
-
-        // smsSenderService.sendSms(phone, "Your OTP code is: " + otp + ". Valid for 5 minutes.");
+        // smsSenderService.sendSms(phone, "Your OTP code is: " + otp + ". Valid for 5
+        // minutes.");
         //
         // Log OTP ra console cho development (XÓA KHI LÊN PRODUCTION)
         log.info("======== [DEV] OTP for {}: {} ========", phone, otp);
