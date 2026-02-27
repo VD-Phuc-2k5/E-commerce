@@ -1,5 +1,5 @@
 1. Người dùng gửi API Đăng ký tài khoản người bán -> Cần nhập số điện thoại
-	POST /api/v1/auth/phone?type=seller
+	POST /api/v1/auth/send-otp
 	Request Body:
 	{
 	   "phone": "+84sdt",
@@ -32,7 +32,7 @@
 	  "data": null
 	}
 2. Verify OTP 
-	POST /api/v1/auth/verify-otp
+	POST /api/v1/auth/verify-otp?type=seller
 	Request body: 
 	{
 	  "phone": "+84xxx",
@@ -79,12 +79,10 @@
 	  }
 	}
 	
-3.2 Tài khoản đã tồn tại -> 
-	Gọi API GET /api/v1/auth/@me để lấy thông tin người dùng trước đó email, phone, username, địa chỉ, phone
 
-Cần cập nhật thông tin người bán -> 4
+Cần cập nhật thông tin người bán -> 3
 
-4. Thiết lập thông tin Shop & Vận chuyển (Gộp: Thông tin shop, Vận chuyển, Loại hình KD)
+3. Thiết lập thông tin Shop & Vận chuyển (Gộp: Thông tin shop, Vận chuyển, Loại hình KD)
 	Cần Header Authorization: Bearer <access_token> để xác định User.
 	
 	POST /api/v1/seller/onboarding/general
@@ -115,7 +113,7 @@ Cần cập nhật thông tin người bán -> 4
 	  "data": null
 	}
 
-5. Xác thực e-KYC (AI MTCNN & FaceNet) //B Phúc thiết kế API này
+4. Xác thực e-KYC (AI MTCNN & FaceNet) //B Phúc thiết kế API này
 	Gửi URL ảnh giấy tờ và ảnh chân dung để AI xử lý so khớp.
 	
 	POST /api/v1/seller/onboarding/kyc
@@ -154,7 +152,7 @@ Cần cập nhật thông tin người bán -> 4
 	  "data": null
 	}
 
-6. Ký Hợp đồng điện tử & Hoàn tất  //Chưa coi qua
+5. Ký Hợp đồng điện tử & Hoàn tất  //Chưa coi qua
 	Xác nhận cam kết cuối cùng để kích hoạt trạng thái Người bán (Seller).
 	
 	POST /api/v1/seller/onboarding/finalize
