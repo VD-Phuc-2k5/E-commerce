@@ -22,7 +22,7 @@ import com.dontwait.server.mapper.UserMapper;
 import com.dontwait.server.service.AuthService;
 import com.dontwait.server.service.JwtService;
 import com.dontwait.server.service.OTPService;
-
+// import com.dontwait.server.service.SmsSenderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -49,9 +49,13 @@ public class AuthServiceImpl implements AuthService {
         String otp = otpService.generateAndSaveOtp(phone);
 
         // TODO: Uncomment khi Twilio hoạt động
-        // smsSenderService.sendSms(phone, "Your OTP code is: " + otp + ". Valid for 5
-        // minutes.");
 
+        if(phone.startsWith("0")) {
+            phone = request.getCountryCode() + phone.substring(1);
+        }
+
+        // smsSenderService.sendSms(phone, "Your OTP code is: " + otp + ". Valid for 5 minutes.");
+        //
         // Log OTP ra console cho development (XÓA KHI LÊN PRODUCTION)
         log.info("======== [DEV] OTP for {}: {} ========", phone, otp);
 
