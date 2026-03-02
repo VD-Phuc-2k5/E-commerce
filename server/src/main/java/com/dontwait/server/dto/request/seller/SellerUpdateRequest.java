@@ -15,6 +15,6 @@ import lombok.experimental.FieldDefaults;
 public class SellerUpdateRequest {
     String shopName; //default = username
     String pickupAddress; //default = shippingAddress
-    String email; // default buyer email
-    String phone; //default phone = phone verified
+    String shopeEmail; // default buyer email
+    String shopPhone; //default phone = phone verified
 }
