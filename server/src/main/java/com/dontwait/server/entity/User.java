@@ -33,7 +33,6 @@ public class User {
     boolean phoneVerified;
     boolean emailVerified;
     String kycStatus;
-    String shopName;
     String idCardNumber;
     String idCardFrontUrl;
     String idCardBackUrl;
