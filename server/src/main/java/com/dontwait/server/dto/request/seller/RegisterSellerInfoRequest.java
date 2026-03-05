@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SellerUpdateRequest {
+public class RegisterSellerInfoRequest {
     String shopName; //default = username
     String pickupAddress; //default = shippingAddress
     String shopeEmail; // default buyer email

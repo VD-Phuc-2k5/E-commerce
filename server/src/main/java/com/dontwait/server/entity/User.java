@@ -29,7 +29,6 @@ public class User {
     String userGender;
     String userStatus;
     LocalDate userDob;
-    String userAddress;
     boolean phoneVerified;
     boolean emailVerified;
     String kycStatus;

@@ -2,9 +2,9 @@ package com.dontwait.server.service;
 
 import java.util.UUID;
 
-import com.dontwait.server.dto.request.seller.SellerUpdateRequest;
+import com.dontwait.server.dto.request.seller.RegisterSellerInfoRequest;
 
 public interface SellerService {
-    Boolean updateInfoSeller(SellerUpdateRequest request, UUID userId);
+    Boolean updateInfoSeller(RegisterSellerInfoRequest request, UUID userId);
     
 }

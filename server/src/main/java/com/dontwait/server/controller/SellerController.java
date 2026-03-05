@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dontwait.server.dto.request.seller.SellerUpdateRequest;
+import com.dontwait.server.dto.request.seller.RegisterSellerInfoRequest;
 import com.dontwait.server.dto.response.ApiResponse;
 import com.dontwait.server.service.SellerService;
 
@@ -26,7 +26,7 @@ public class SellerController {
     SellerService sellerService;
 
     @PutMapping("{userId}")
-    public ResponseEntity<ApiResponse<Boolean>> updateInfoSeller(@Valid @RequestBody SellerUpdateRequest request,
+    public ResponseEntity<ApiResponse<Boolean>> RegisterInfoSeller(@Valid @RequestBody RegisterSellerInfoRequest request,
             UUID userId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
