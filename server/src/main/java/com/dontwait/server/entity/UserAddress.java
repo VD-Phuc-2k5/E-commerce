@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 public class UserAddress {
-    Long userAddressId;
+    Long addressId;
     UUID userId;
     String address;
     String type;

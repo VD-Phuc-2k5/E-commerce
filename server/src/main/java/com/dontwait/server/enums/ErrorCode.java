@@ -42,8 +42,10 @@ public enum ErrorCode {
     SHOP_DESCRIPTION_INVALID(1032, "Shop description must not exceed 500 characters", HttpStatus.BAD_REQUEST),
     PICKUP_ADDRESS_INVALID(1033, "Pickup address must not exceed 255 characters", HttpStatus.BAD_REQUEST),
     USER_INFO_CONFLICT(1034, "User email or phone do not match after registered", HttpStatus.CONFLICT),
-    POSSTION_MAP_INVALID(1035, "Posstion map must not exceed 255 characters", HttpStatus.BAD_REQUEST),
-    USER_INFO_ALREADY_EXISTS(1036, "User already has seller info", HttpStatus.CONFLICT);
+    POSSTION_MAP_INVALID(1035, "Postion map must not exceed 255 characters", HttpStatus.BAD_REQUEST),
+    USER_INFO_ALREADY_EXISTS(1036, "User already has seller info", HttpStatus.CONFLICT),
+    SHOP_EMAIL_NOT_BLANK(1037, "Shop email must not be blank", HttpStatus.BAD_REQUEST),
+    SHOP_PHONE_NOT_BLANK(1038, "Shop phone must not be blank", HttpStatus.BAD_REQUEST);
     int code;
     String message;
     HttpStatus httpStatus; 

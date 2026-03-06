@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import com.dontwait.server.entity.UserAddress;
+import java.util.List;
 import java.util.UUID;
 @Mapper
 public interface UserAddressMapper {
@@ -12,5 +13,5 @@ public interface UserAddressMapper {
     int insertUserAddress(UserAddress userAddress);
 
     @Select("SELECT * FROM user_addresses WHERE user_id = #{userId}")
-    UserAddress findByUserId(UUID userId);
+    List<UserAddress> findByUserId(UUID userId);
 }

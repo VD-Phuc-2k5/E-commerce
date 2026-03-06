@@ -27,13 +27,13 @@ public class SellerController {
     SellerService sellerService;
 
     @PutMapping("/{userId}")
-    public ResponseEntity<ApiResponse<Boolean>> RegisterInfoSeller(
+    public ResponseEntity<ApiResponse<Boolean>> registerInfoSeller(
             @Valid @RequestBody RegisterSellerInfoRequest request,
             @PathVariable UUID userId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponse.<Boolean>builder()
-                        .message("Update info seller successfully")
+                        .message("Register info seller successfully")
                         .result(sellerService.registerInfoSeller(request, userId)).build());
     }
 
