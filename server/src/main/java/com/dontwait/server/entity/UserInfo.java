@@ -17,6 +17,7 @@ public class UserInfo {
     UUID userId;
     String phone;
     String shopName;
+    String shopEmail;
     String shopDescription;
-
+    String pickupAddress;
 }
