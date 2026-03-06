@@ -19,5 +19,6 @@ public class UserAddress {
     String address;
     String type;
     Boolean isDefault;
-    String possitionMap;
+    String positionMap;
+    String phone;
 }

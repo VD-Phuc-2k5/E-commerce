@@ -23,6 +23,9 @@ public class RegisterSellerInfoRequest {
     @Size(max = 255, message = "PICKUP_ADDRESS_INVALID")
     String pickupAddress; // default = shippingAddress
 
+    @Size(max = 255, message = "POSSTION_MAP_INVALID")
+    String positionMap; // default = shippingAddress possitionMap
+
     @Email(message = "SHOP_EMAIL_INVALID")
     @Size(max = 100, message = "SHOP_EMAIL_INVALID")
     String shopEmail; // default = buyer email

@@ -40,7 +40,10 @@ public enum ErrorCode {
     SHOP_EMAIL_INVALID(1030, "Shop email is invalid", HttpStatus.BAD_REQUEST),
     SHOP_PHONE_INVALID(1031, "Shop phone number is invalid", HttpStatus.BAD_REQUEST),
     SHOP_DESCRIPTION_INVALID(1032, "Shop description must not exceed 500 characters", HttpStatus.BAD_REQUEST),
-    PICKUP_ADDRESS_INVALID(1033, "Pickup address must not exceed 255 characters", HttpStatus.BAD_REQUEST);
+    PICKUP_ADDRESS_INVALID(1033, "Pickup address must not exceed 255 characters", HttpStatus.BAD_REQUEST),
+    USER_INFO_CONFLICT(1034, "User email or phone do not match after registered", HttpStatus.CONFLICT),
+    POSSTION_MAP_INVALID(1035, "Posstion map must not exceed 255 characters", HttpStatus.BAD_REQUEST),
+    USER_INFO_ALREADY_EXISTS(1036, "User already has seller info", HttpStatus.CONFLICT);
     int code;
     String message;
     HttpStatus httpStatus; 

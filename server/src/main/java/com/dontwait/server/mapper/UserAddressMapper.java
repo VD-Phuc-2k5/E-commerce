@@ -7,8 +7,8 @@ import com.dontwait.server.entity.UserAddress;
 import java.util.UUID;
 @Mapper
 public interface UserAddressMapper {
-    @Insert("INSERT INTO user_addresses (user_id, address, type, is_default, possition_map, phone) " +
-            "VALUES (#{userId}, #{address}, #{type}, #{isDefault}, #{possitionMap}, #{phone})")
+    @Insert("INSERT INTO user_addresses (user_id, address, type, is_default, position_map, phone) " +
+            "VALUES (#{userId}, #{address}, #{type}, #{isDefault}, #{positionMap}, #{phone})")
     int insertUserAddress(UserAddress userAddress);
 
     @Select("SELECT * FROM user_addresses WHERE user_id = #{userId}")

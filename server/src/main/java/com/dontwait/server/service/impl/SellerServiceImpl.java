@@ -12,6 +12,7 @@ import com.dontwait.server.exception.AppException;
 import com.dontwait.server.mapper.UserAddressMapper;
 import com.dontwait.server.mapper.UserInfoMapper;
 import com.dontwait.server.mapper.UserMapper;
+import com.dontwait.server.entity.User;
 import com.dontwait.server.service.SellerService;
 
 import lombok.AccessLevel;
@@ -29,16 +30,24 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Boolean registerInfoSeller(RegisterSellerInfoRequest request, UUID userId) {
+        User existingUser = userMapper.findById(userId);
         // 1. Kiểm tra user tồn tại
-        if (userMapper.findById(userId) == null) {
+        if (existingUser == null) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
-
-        // 2. Kiểm tra UserInfo đã tồn tại chưa (tránh insert trùng)
-        if (userInfoMapper.findByUserId(userId) != null) {
-            throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
+        // 2. Email, phone phải khớp với thông tin đăng ký của user
+        if (!existingUser.getUserEmail().equals(request.getShopEmail()) ||
+                !existingUser.getUserPhone().equals(request.getShopPhone())) {
+            throw new AppException(ErrorCode.USER_INFO_CONFLICT);
+        }
+        
+        // 2.1 Kiểm tra nếu user đã có thông tin seller rồi thì không cho update nữa
+        UserInfo existingUserInfo = userInfoMapper.findByUserId(userId);
+        if (existingUserInfo != null) {
+            throw new AppException(ErrorCode.USER_INFO_ALREADY_EXISTS);
         }
 
+        
         // 3. Insert UserInfo — FE đã tự fill dữ liệu trước khi gửi lên
         UserInfo userInfo = UserInfo.builder()
                 .userId(userId)
@@ -58,6 +67,7 @@ public class SellerServiceImpl implements SellerService {
                     .type("PICKUP")
                     .isDefault(true)
                     .phone(request.getShopPhone())
+                    .positionMap(request.getPositionMap())
                     .build();
             userAddressMapper.insertUserAddress(newAddress);
         }
