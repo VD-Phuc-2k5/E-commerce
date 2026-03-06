@@ -29,11 +29,9 @@ public class User {
     String userGender;
     String userStatus;
     LocalDate userDob;
-    String userAddress;
     boolean phoneVerified;
     boolean emailVerified;
     String kycStatus;
-    String shopName;
     String idCardNumber;
     String idCardFrontUrl;
     String idCardBackUrl;

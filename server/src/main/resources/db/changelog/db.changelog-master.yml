@@ -7,3 +7,11 @@ databaseChangeLog:
       file: changes/003-fix-gender-and-seed-roles.sql
   - include:
       file: changes/004-insert-seed-data-roles.sql
+  - include:
+      file: changes/005-remove-shopname-in-users-and-add-user-info.sql
+  - include:
+      file: changes/006-add-missing-type-user-address.sql
+  - include:
+      file: changes/007-add-shop-email-pickup-address-to-user-info.sql
+  - include:
+      file: changes/008-add-phone-in-user-address.sql

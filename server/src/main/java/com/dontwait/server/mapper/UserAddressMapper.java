@@ -1,0 +1,17 @@
+package com.dontwait.server.mapper;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import com.dontwait.server.entity.UserAddress;
+import java.util.List;
+import java.util.UUID;
+@Mapper
+public interface UserAddressMapper {
+    @Insert("INSERT INTO user_addresses (user_id, address, type, is_default, position_map, phone) " +
+            "VALUES (#{userId}, #{address}, #{type}, #{isDefault}, #{positionMap}, #{phone})")
+    int insertUserAddress(UserAddress userAddress);
+
+    @Select("SELECT * FROM user_addresses WHERE user_id = #{userId}")
+    List<UserAddress> findByUserId(UUID userId);
+}
