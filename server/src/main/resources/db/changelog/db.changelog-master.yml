@@ -13,3 +13,5 @@ databaseChangeLog:
       file: changes/006-add-missing-type-user-address.sql
   - include:
       file: changes/007-add-shop-email-pickup-address-to-user-info.sql
+  - include:
+      file: changes/008-add-phone-in-user-address.sql

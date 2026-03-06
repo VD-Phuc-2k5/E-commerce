@@ -57,6 +57,7 @@ public class SellerServiceImpl implements SellerService {
                     .address(request.getPickupAddress())
                     .type("PICKUP")
                     .isDefault(true)
+                    .phone(request.getShopPhone())
                     .build();
             userAddressMapper.insertUserAddress(newAddress);
         }
