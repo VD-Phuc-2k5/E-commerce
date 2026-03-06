@@ -35,7 +35,12 @@ public enum ErrorCode {
     PHONE_ALREADY_REGISTERED(1025, "Phone number is already registered", HttpStatus.CONFLICT),
     IDENTIFIER_REQUIRED(1026, "Identifier (phone/email/username) is required", HttpStatus.BAD_REQUEST),
     USER_ALREADY_EXISTS(1027, "User already exists with verified phone", HttpStatus.CONFLICT),
-    TYPE_INVALID(1028, "Your type client send not matchs in server", HttpStatus.CONFLICT);
+    TYPE_INVALID(1028, "Your type client send not matchs in server", HttpStatus.CONFLICT),
+    SHOP_NAME_INVALID(1029, "Shop name must be between 3 and 50 characters", HttpStatus.BAD_REQUEST),
+    SHOP_EMAIL_INVALID(1030, "Shop email is invalid", HttpStatus.BAD_REQUEST),
+    SHOP_PHONE_INVALID(1031, "Shop phone number is invalid", HttpStatus.BAD_REQUEST),
+    SHOP_DESCRIPTION_INVALID(1032, "Shop description must not exceed 500 characters", HttpStatus.BAD_REQUEST),
+    PICKUP_ADDRESS_INVALID(1033, "Pickup address must not exceed 255 characters", HttpStatus.BAD_REQUEST);
     int code;
     String message;
     HttpStatus httpStatus; 
