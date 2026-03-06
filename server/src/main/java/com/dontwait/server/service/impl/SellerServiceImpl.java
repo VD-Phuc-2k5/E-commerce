@@ -28,7 +28,7 @@ public class SellerServiceImpl implements SellerService {
     UserAddressMapper userAddressMapper;
 
     @Override
-    public Boolean updateInfoSeller(RegisterSellerInfoRequest request, UUID userId) {
+    public Boolean registerInfoSeller(RegisterSellerInfoRequest request, UUID userId) {
         // 1. Kiểm tra user tồn tại
         if (userMapper.findById(userId) == null) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);

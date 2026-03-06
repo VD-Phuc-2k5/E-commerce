@@ -5,6 +5,6 @@ import java.util.UUID;
 import com.dontwait.server.dto.request.seller.RegisterSellerInfoRequest;
 
 public interface SellerService {
-    Boolean updateInfoSeller(RegisterSellerInfoRequest request, UUID userId);
+    Boolean registerInfoSeller(RegisterSellerInfoRequest request, UUID userId);
     
 }

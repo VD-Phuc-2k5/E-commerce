@@ -34,7 +34,7 @@ public class SellerController {
                 .status(HttpStatus.OK)
                 .body(ApiResponse.<Boolean>builder()
                         .message("Update info seller successfully")
-                        .result(sellerService.updateInfoSeller(request, userId)).build());
+                        .result(sellerService.registerInfoSeller(request, userId)).build());
     }
 
 }
